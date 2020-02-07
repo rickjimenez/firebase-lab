@@ -1,4 +1,4 @@
-name: CI
+name: Deploy to Firebase
 
 on:
   push:
@@ -16,9 +16,9 @@ jobs:
     - uses: actions/setup-node@master
       with:
         node-version: '10.x'
-    - run: npm install
-    - run: cd functions && npm install
-    - run: npm run build
+    - run: yarn
+    - run: cd functions && yarn
+    - run: yarn build
     - uses: w9jds/firebase-action@master
       with:
         args: deploy
