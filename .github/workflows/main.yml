@@ -3,24 +3,23 @@ name: Deploy to Firebase
 on:
   push:
     branches:
-    - master
-    - release/*
+      - master
+      - release/*
 
 jobs:
   firebase-deploy:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
-      with:
-        node-version: '10.x'
-    - run: yarn
-    - run: cd functions && npm install
-    - run: yarn build
-    - uses: w9jds/firebase-action@master
-      with:
-        args: deploy
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: "10.x"
+      - run: cd functions && npm install
+      - run: npm install
+      - run: npm run build
+      - uses: w9jds/firebase-action@master
+        with:
+          args: deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
