@@ -6,12 +6,7 @@ import { auth, fn } from './firebase';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
-// auth
-//   .signInWithEmailAndPassword('ritch.ion@gmail.com', 'richo02')
-//   .catch(error => {
-//     console.log(error);
-//   });
-
+console.log(process.env);
 
 // auth.onAuthStateChanged(function(user) {
 //   if (user) {
@@ -23,23 +18,31 @@ const { Header, Content, Footer, Sider } = Layout;
 // });
 
 setTimeout(() => {
-  auth.currentUser
-    .getIdToken(/* forceRefresh */ true)
-    .then(idToken => {
-      console.log(idToken);
-    })
-    .catch(error => {
-      // Handle error
-      console.log(error);
-    });
+  if (auth.currentUser) {
+    auth.currentUser
+      .getIdToken(/* forceRefresh */ true)
+      .then(idToken => {
+        console.log(idToken);
+      })
+      .catch(error => {
+        // Handle error
+        console.log(error);
+      });
+  } else {
+    auth
+      .signInWithEmailAndPassword('ritch.ion@gmail.com', 'richo02')
+      .catch(error => {
+        console.log(error);
+      });
+  }
 }, 3000);
 
-const addMessage = fn.httpsCallable('getUsers');
-addMessage({ text: 'teso' }).then(result => {
-  // Read result of the Cloud Function.
-  console.log(result);
-  // ...
-});
+// const addMessage = fn.httpsCallable('getUsers');
+// addMessage({ text: 'teso' }).then(result => {
+//   // Read result of the Cloud Function.
+//   console.log(result);
+//   // ...
+// });
 
 // auth.signOut().then(function() {
 //   // Sign-out successful.
