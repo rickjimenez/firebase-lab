@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 
-// import { auth, fn } from './firebase';
+import { auth, fn } from './firebase';
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
-
-console.log(process.env);
 
 // auth.onAuthStateChanged(function(user) {
 //   if (user) {

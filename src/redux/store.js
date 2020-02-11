@@ -1,11 +1,6 @@
 import { createStore } from 'redux';
+import reducers from './reducer';
 
-const reducer = (state, { type, payload }) => {
-  switch (type) {
-    default:
-      return state;
-  }
-};
+const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-
-export const store = createStore(reducer, ['Use Redux']);
+export default store;
