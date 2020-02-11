@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 
-import { auth, fn } from './firebase';
+// import { auth, fn } from './firebase';
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -17,25 +17,25 @@ console.log(process.env);
 //   }
 // });
 
-setTimeout(() => {
-  if (auth.currentUser) {
-    auth.currentUser
-      .getIdToken(/* forceRefresh */ true)
-      .then(idToken => {
-        console.log(idToken);
-      })
-      .catch(error => {
-        // Handle error
-        console.log(error);
-      });
-  } else {
-    auth
-      .signInWithEmailAndPassword('ritch.ion@gmail.com', 'richo02')
-      .catch(error => {
-        console.log(error);
-      });
-  }
-}, 3000);
+// setTimeout(() => {
+//   if (auth.currentUser) {
+//     auth.currentUser
+//       .getIdToken(/* forceRefresh */ true)
+//       .then(idToken => {
+//         console.log(idToken);
+//       })
+//       .catch(error => {
+//         // Handle error
+//         console.log(error);
+//       });
+//   } else {
+//     auth
+//       .signInWithEmailAndPassword('ritch.ion@gmail.com', 'richo02')
+//       .catch(error => {
+//         console.log(error);
+//       });
+//   }
+// }, 3000);
 
 // const addMessage = fn.httpsCallable('getUsers');
 // addMessage({ text: 'teso' }).then(result => {
