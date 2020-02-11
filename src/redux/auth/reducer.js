@@ -1,16 +1,21 @@
 import authTypes from './types';
+
 const initState = {
-  currentUser: null,
+  currentUser: null
 };
 
-const authReducer = (state = initState, action) => {
-  switch (action.type) {
+const authReducer = (state = initState, { type, payload }) => {
+  switch (type) {
     case authTypes.SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: action.payload,
+        currentUser: payload
       };
-
+    case authTypes.CLEAR_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: null
+      };
     default:
       return state;
   }

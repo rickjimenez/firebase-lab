@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrentUser, clearCurrentUser } from './redux/auth/actions';
 
 import { auth, fn } from './firebase';
 
@@ -50,6 +52,41 @@ const { Header, Content, Footer, Sider } = Layout;
 
 export default () => {
   const [collapsed, setCollapsed] = useState(false);
+  const currentUser = useSelector(state => state.auth.currentUser);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    let unsubscribeFromAuth = null;
+    unsubscribeFromAuth = auth.onAuthStateChanged(user => {
+      if (user) {
+        dispatch(setCurrentUser(user));
+      } else {
+        dispatch(clearCurrentUser());
+      }
+    });
+    return () => unsubscribeFromAuth();
+  }, [dispatch]);
+
+  const signIn = () => {
+    auth
+      .signInWithEmailAndPassword('ritch.ion@gmail.com', 'richo02')
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  const signOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log(error);
+      });
+  };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -69,7 +106,7 @@ export default () => {
             title={
               <span>
                 <Icon type="user" />
-                <span>User</span>
+                <span>{currentUser ? currentUser.email : 'User'}</span>
               </span>
             }
           >
@@ -103,7 +140,12 @@ export default () => {
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
           </Breadcrumb>
           <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-            Bill is a cat.
+            <button type="button" onClick={signOut}>
+              Sign out
+            </button>
+            <button type="button" onClick={signIn}>
+              Sign in
+            </button>
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>

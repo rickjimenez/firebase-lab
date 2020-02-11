@@ -6,8 +6,6 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/functions';
 
-console.log(process.env);
-
 
 // get data from env vars
 const firebaseConfig = {
@@ -20,8 +18,7 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID
 };
 
-if (process.env.NODE_ENV === 'production') firebase.initializeApp();
-else firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
 // Initialize Cloud Functions through Firebase
